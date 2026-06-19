@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, X, } from 'lucide-react'
+import { Sparkles, X } from 'lucide-react'
 import { navItems, footerNav } from '@/config/nav'
 import { cn } from '@/lib/utils'
 
-function NavList({ onNavigate }) {
+function NavList({ onNavigate, idPrefix }) {
   return (
     <>
       <div className="flex items-center gap-2.5 px-3 py-1">
@@ -20,30 +20,20 @@ function NavList({ onNavigate }) {
       <nav className="mt-6 flex-1 space-y-1">
         <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600">Menu</p>
         {navItems.map((item) => (
-          <SideLink key={item.to} {...item} onNavigate={onNavigate} />
+          <SideLink key={item.to} {...item} onNavigate={onNavigate} idPrefix={idPrefix} />
         ))}
       </nav>
 
       <div className="space-y-1 border-t border-white/5 pt-3">
         {footerNav.map((item) => (
-          <SideLink key={item.to} {...item} onNavigate={onNavigate} />
+          <SideLink key={item.to} {...item} onNavigate={onNavigate} idPrefix={idPrefix} />
         ))}
       </div>
     </>
   )
 }
 
-function SideLink({
-  to,
-  label,
-  icon: Icon,
-  onNavigate,
-}
-
-
-
-
-) {
+function SideLink({ to, label, icon: Icon, onNavigate, idPrefix }) {
   return (
     <NavLink
       to={to}
@@ -60,7 +50,9 @@ function SideLink({
         <>
           {isActive && (
             <motion.div
-              layoutId="sidebar-active"
+              // layoutId must be unique per sidebar instance, otherwise the
+              // always-mounted desktop sidebar and the mobile drawer collide.
+              layoutId={`${idPrefix}-sidebar-active`}
               className="absolute inset-0 rounded-xl bg-brand-gradient/15 ring-1 ring-brand-indigo/30"
               transition={{ type: 'spring', stiffness: 380, damping: 32 }}
             />
@@ -76,7 +68,7 @@ function SideLink({
 export function Sidebar() {
   return (
     <aside className="sticky top-0 hidden h-screen w-64 flex-col gap-1 border-r border-white/5 bg-white/[0.02] p-4 backdrop-blur-xl lg:flex">
-      <NavList />
+      <NavList idPrefix="desktop" />
     </aside>
   )
 }
@@ -103,7 +95,7 @@ export function MobileSidebar({ open, onClose }) {
             <button onClick={onClose} className="absolute right-4 top-4 text-slate-400 hover:text-white">
               <X size={20} />
             </button>
-            <NavList onNavigate={onClose} />
+            <NavList onNavigate={onClose} idPrefix="mobile" />
           </motion.aside>
         </div>
       )}
