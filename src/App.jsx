@@ -17,6 +17,11 @@ const Calendar = lazy(() => import('./pages/Calendar'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Settings = lazy(() => import('./pages/Settings'))
 
+// HTML Learning course (its own full-page layout)
+const LearnLayout = lazy(() => import('./learn/LearnLayout').then((m) => ({ default: m.LearnLayout })))
+const HtmlHome = lazy(() => import('./learn/HtmlHome'))
+const TopicPage = lazy(() => import('./learn/TopicPage'))
+
 function PageFallback() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -50,6 +55,12 @@ export default function App() {
           <Route path="calendar" element={<Suspense fallback={<PageFallback />}><Calendar /></Suspense>} />
           <Route path="profile" element={<Suspense fallback={<PageFallback />}><Profile /></Suspense>} />
           <Route path="settings" element={<Suspense fallback={<PageFallback />}><Settings /></Suspense>} />
+        </Route>
+
+        {/* HTML Learning course — dedicated full-page docs layout */}
+        <Route path="/learn" element={<Suspense fallback={<PageFallback />}><LearnLayout /></Suspense>}>
+          <Route path="html" element={<Suspense fallback={<PageFallback />}><HtmlHome /></Suspense>} />
+          <Route path="html/:slug" element={<Suspense fallback={<PageFallback />}><TopicPage /></Suspense>} />
         </Route>
       </Routes>
       <Toaster />
