@@ -5,6 +5,7 @@ import {
   Wallet,
   GraduationCap,
   Code2,
+  Palette,
   BarChart3,
   CalendarDays,
   User,
@@ -18,6 +19,7 @@ export const navItems = [
   { to: '/expenses', label: 'Expenses', icon: Wallet },
   { to: '/learning', label: 'Learning', icon: GraduationCap },
   { to: '/learn/html', label: 'HTML Course', icon: Code2 },
+  { to: '/learn/css', label: 'CSS Course', icon: Palette },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
 ]
