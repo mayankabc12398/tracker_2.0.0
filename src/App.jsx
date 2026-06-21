@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { lazyWithRetry as lazy } from './lib/lazyWithRetry'
 import { AppLayout } from './components/layout/AppLayout'
+import { SyncManager } from './components/SyncManager'
 import { Toaster } from './components/ui/Toast'
 import { CardSkeleton } from './components/ui/Skeleton'
 import { useTheme } from './hooks/useTheme'
@@ -114,6 +115,7 @@ export default function App() {
           <Route path=":slug" element={<Suspense fallback={<PageFallback />}><AiTopicPage /></Suspense>} />
         </Route>
       </Routes>
+      <SyncManager />
       <Toaster />
     </>
   )
