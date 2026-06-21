@@ -23,6 +23,7 @@ import { useSyncStatus } from '@/store/useSyncStatus'
 import { toast } from '@/components/ui/Toast'
 import {
   sheetsEnabled, fetchAllData, saveExpenses, saveProgress, saveSettings, saveHabits, saveGoals,
+  saveTopics, saveNotifications,
 } from '@/services/googleSheetService'
 
 // HTML store sirf `completed` rakhta hai; baaki courses completed+bookmarks+notes.
@@ -69,6 +70,8 @@ function applyHydration(remote) {
     if (nonEmptyArr(remote.expenses)) useStore.setState({ transactions: remote.expenses })
     if (nonEmptyArr(remote.habits)) useStore.setState({ habits: remote.habits })
     if (nonEmptyArr(remote.goals)) useStore.setState({ goals: remote.goals })
+    if (nonEmptyArr(remote.topics)) useStore.setState({ topics: remote.topics })
+    if (nonEmptyArr(remote.notifications)) useStore.setState({ notifications: remote.notifications })
     if (nonEmptyObj(remote.settings)) {
       if (remote.settings.profile) useStore.setState({ profile: remote.settings.profile })
       if (remote.settings.settings) useStore.setState({ settings: remote.settings.settings })
@@ -120,6 +123,8 @@ export function useSheetSync() {
         if (!nonEmptyArr(remote.expenses) && st.transactions.length) await saveExpenses(st.transactions)
         if (!nonEmptyArr(remote.habits) && st.habits.length) await saveHabits(st.habits)
         if (!nonEmptyArr(remote.goals) && st.goals.length) await saveGoals(st.goals)
+        if (!nonEmptyArr(remote.topics) && st.topics.length) await saveTopics(st.topics)
+        if (!nonEmptyArr(remote.notifications) && st.notifications.length) await saveNotifications(st.notifications)
         if (!nonEmptyObj(remote.settings)) await saveSettings({ profile: st.profile, settings: st.settings })
         if (!nonEmptyObj(remote.progress)) await saveProgress(gatherProgress())
         statusStore().set('saved')
@@ -158,6 +163,12 @@ export function useSheetSync() {
           }
           if (s.goals !== prev.goals) {
             debounce('goals', () => safePush(() => saveGoals(useStore.getState().goals)))
+          }
+          if (s.topics !== prev.topics) {
+            debounce('topics', () => safePush(() => saveTopics(useStore.getState().topics)))
+          }
+          if (s.notifications !== prev.notifications) {
+            debounce('notifications', () => safePush(() => saveNotifications(useStore.getState().notifications)))
           }
           if (s.profile !== prev.profile || s.settings !== prev.settings) {
             debounce('settings', () => safePush(() => saveSettings({

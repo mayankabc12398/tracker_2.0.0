@@ -32,6 +32,8 @@ function doGet(e) {
     settings: readSettings(),
     habits: readHabits(),
     goals: readGoals(),
+    topics: readTopics(),
+    notifications: readNotifications(),
   });
 }
 
@@ -46,6 +48,8 @@ function doPost(e) {
   else if (tab === 'settings') writeSettings(payload);
   else if (tab === 'habits') writeHabits(payload);
   else if (tab === 'goals') writeGoals(payload);
+  else if (tab === 'topics') writeTopics(payload);
+  else if (tab === 'notifications') writeNotifications(payload);
   else return json({ error: 'unknown tab: ' + tab });
   return json({ ok: true });
 }
@@ -147,6 +151,34 @@ function writeGoals(list) {
   sh.clearContents();
   sh.appendRow(['id', 'data']);
   var rows = (list || []).map(function (g) { return [g.id, JSON.stringify(g)]; });
+  if (rows.length) sh.getRange(2, 1, rows.length, 2).setValues(rows);
+}
+
+// ── Topics / Notifications tabs:  id | data  (full object as JSON) ────────────
+function readTopics() {
+  var sh = tab('Topics', ['id', 'data']);
+  return sh.getDataRange().getValues().slice(1)
+    .map(function (r) { return parseJson(r[1], null); })
+    .filter(function (x) { return x; });
+}
+function writeTopics(list) {
+  var sh = tab('Topics', ['id', 'data']);
+  sh.clearContents();
+  sh.appendRow(['id', 'data']);
+  var rows = (list || []).map(function (t) { return [t.id, JSON.stringify(t)]; });
+  if (rows.length) sh.getRange(2, 1, rows.length, 2).setValues(rows);
+}
+function readNotifications() {
+  var sh = tab('Notifications', ['id', 'data']);
+  return sh.getDataRange().getValues().slice(1)
+    .map(function (r) { return parseJson(r[1], null); })
+    .filter(function (x) { return x; });
+}
+function writeNotifications(list) {
+  var sh = tab('Notifications', ['id', 'data']);
+  sh.clearContents();
+  sh.appendRow(['id', 'data']);
+  var rows = (list || []).map(function (n) { return [n.id, JSON.stringify(n)]; });
   if (rows.length) sh.getRange(2, 1, rows.length, 2).setValues(rows);
 }
 

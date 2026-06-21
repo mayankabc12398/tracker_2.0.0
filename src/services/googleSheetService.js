@@ -48,6 +48,8 @@ export const saveProgress = (map) => postTab('progress', map)
 export const saveSettings = (obj) => postTab('settings', obj)
 export const saveHabits = (list) => postTab('habits', list)
 export const saveGoals = (list) => postTab('goals', list)
+export const saveTopics = (list) => postTab('topics', list)
+export const saveNotifications = (list) => postTab('notifications', list)
 
 // ── CRUD facade (Phase 3 spec: getAll/getById/create/update/delete/search) ────
 // Note: app khud Zustand + sync layer use karti hai. Yeh methods standalone /
