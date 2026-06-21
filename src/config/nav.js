@@ -8,6 +8,7 @@ import {
   Palette,
   Braces,
   Atom,
+  Globe,
   BarChart3,
   CalendarDays,
   User,
@@ -24,6 +25,7 @@ export const navItems = [
   { to: '/learn/css', label: 'CSS Course', icon: Palette },
   { to: '/learn/javascript', label: 'JavaScript Course', icon: Braces },
   { to: '/learn/react', label: 'React Course', icon: Atom },
+  { to: '/learn/browser', label: 'Browser Internals', icon: Globe },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
 ]
