@@ -32,6 +32,11 @@ const JsLayout = lazy(() => import('./learn/JsLayout').then((m) => ({ default: m
 const JsHome = lazy(() => import('./learn/JsHome'))
 const JsTopicPage = lazy(() => import('./learn/JsTopicPage'))
 
+// React Learning course
+const ReactLayout = lazy(() => import('./learn/ReactLayout').then((m) => ({ default: m.ReactLayout })))
+const ReactHome = lazy(() => import('./learn/ReactHome'))
+const ReactTopicPage = lazy(() => import('./learn/ReactTopicPage'))
+
 function PageFallback() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -83,6 +88,12 @@ export default function App() {
         <Route path="/learn/javascript" element={<Suspense fallback={<PageFallback />}><JsLayout /></Suspense>}>
           <Route index element={<Suspense fallback={<PageFallback />}><JsHome /></Suspense>} />
           <Route path=":slug" element={<Suspense fallback={<PageFallback />}><JsTopicPage /></Suspense>} />
+        </Route>
+
+        {/* React Learning course */}
+        <Route path="/learn/react" element={<Suspense fallback={<PageFallback />}><ReactLayout /></Suspense>}>
+          <Route index element={<Suspense fallback={<PageFallback />}><ReactHome /></Suspense>} />
+          <Route path=":slug" element={<Suspense fallback={<PageFallback />}><ReactTopicPage /></Suspense>} />
         </Route>
       </Routes>
       <Toaster />

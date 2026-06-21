@@ -7,6 +7,7 @@ import {
   Code2,
   Palette,
   Braces,
+  Atom,
   BarChart3,
   CalendarDays,
   User,
@@ -22,6 +23,7 @@ export const navItems = [
   { to: '/learn/html', label: 'HTML Course', icon: Code2 },
   { to: '/learn/css', label: 'CSS Course', icon: Palette },
   { to: '/learn/javascript', label: 'JavaScript Course', icon: Braces },
+  { to: '/learn/react', label: 'React Course', icon: Atom },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
 ]
