@@ -43,6 +43,11 @@ const BrowserLayout = lazy(() => import('./learn/BrowserLayout').then((m) => ({ 
 const BrowserHome = lazy(() => import('./learn/BrowserHome'))
 const BrowserTopicPage = lazy(() => import('./learn/BrowserTopicPage'))
 
+// AI Integration course
+const AiLayout = lazy(() => import('./learn/AiLayout').then((m) => ({ default: m.AiLayout })))
+const AiHome = lazy(() => import('./learn/AiHome'))
+const AiTopicPage = lazy(() => import('./learn/AiTopicPage'))
+
 function PageFallback() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -101,6 +106,12 @@ export default function App() {
         <Route path="/learn/browser" element={<Suspense fallback={<PageFallback />}><BrowserLayout /></Suspense>}>
           <Route index element={<Suspense fallback={<PageFallback />}><BrowserHome /></Suspense>} />
           <Route path=":slug" element={<Suspense fallback={<PageFallback />}><BrowserTopicPage /></Suspense>} />
+        </Route>
+
+        {/* AI Integration course */}
+        <Route path="/learn/ai" element={<Suspense fallback={<PageFallback />}><AiLayout /></Suspense>}>
+          <Route index element={<Suspense fallback={<PageFallback />}><AiHome /></Suspense>} />
+          <Route path=":slug" element={<Suspense fallback={<PageFallback />}><AiTopicPage /></Suspense>} />
         </Route>
       </Routes>
       <Toaster />
