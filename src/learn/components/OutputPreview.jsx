@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
 import { Eye } from 'lucide-react'
 
-/** Renders real HTML + CSS inside a sandboxed iframe (isolated from the app). */
-export function OutputPreview({ html = '', css = '', height = 180, label = 'Live Output' }) {
+/** Renders real HTML + CSS (+ optional JS) inside a sandboxed iframe (isolated from the app). */
+export function OutputPreview({ html = '', css = '', js = '', height = 180, label = 'Live Output' }) {
   const srcDoc = useMemo(
     () => `<!DOCTYPE html><html><head><meta charset="utf-8"/><style>
       *{box-sizing:border-box} html,body{margin:0}
       body{font-family:Inter,system-ui,Segoe UI,sans-serif;color:#0f172a;padding:16px;background:#ffffff;}
       ${css}
-    </style></head><body>${html}</body></html>`,
-    [html, css],
+    </style></head><body>${html}${js ? `<script>try{${js}}catch(e){document.body.insertAdjacentHTML('beforeend','<pre style="color:#dc2626">'+e+'</pre>')}<\/script>` : ''}</body></html>`,
+    [html, css, js],
   )
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">

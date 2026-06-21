@@ -6,6 +6,7 @@ import {
   GraduationCap,
   Code2,
   Palette,
+  Braces,
   BarChart3,
   CalendarDays,
   User,
@@ -20,6 +21,7 @@ export const navItems = [
   { to: '/learning', label: 'Learning', icon: GraduationCap },
   { to: '/learn/html', label: 'HTML Course', icon: Code2 },
   { to: '/learn/css', label: 'CSS Course', icon: Palette },
+  { to: '/learn/javascript', label: 'JavaScript Course', icon: Braces },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
 ]
