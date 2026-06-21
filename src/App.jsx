@@ -1,5 +1,6 @@
-import { Suspense, lazy } from 'react'
+import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { lazyWithRetry as lazy } from './lib/lazyWithRetry'
 import { AppLayout } from './components/layout/AppLayout'
 import { Toaster } from './components/ui/Toast'
 import { CardSkeleton } from './components/ui/Skeleton'
@@ -57,24 +58,19 @@ export default function App() {
   return (
     <>
       <Routes>
+        {/* AppLayout renders a single Suspense above its page-transition
+            AnimatePresence, so these children don't need their own. */}
         <Route element={<AppLayout />}>
-          <Route
-            index
-            element={
-              <Suspense fallback={<PageFallback />}>
-                <Dashboard />
-              </Suspense>
-            }
-          />
-          <Route path="habits" element={<Suspense fallback={<PageFallback />}><Habits /></Suspense>} />
-          <Route path="goals" element={<Suspense fallback={<PageFallback />}><Goals /></Suspense>} />
-          <Route path="expenses" element={<Suspense fallback={<PageFallback />}><Expenses /></Suspense>} />
-          <Route path="learning" element={<Suspense fallback={<PageFallback />}><Learning /></Suspense>} />
-          <Route path="learning/:topicId" element={<Suspense fallback={<PageFallback />}><TopicDetail /></Suspense>} />
-          <Route path="analytics" element={<Suspense fallback={<PageFallback />}><Analytics /></Suspense>} />
-          <Route path="calendar" element={<Suspense fallback={<PageFallback />}><Calendar /></Suspense>} />
-          <Route path="profile" element={<Suspense fallback={<PageFallback />}><Profile /></Suspense>} />
-          <Route path="settings" element={<Suspense fallback={<PageFallback />}><Settings /></Suspense>} />
+          <Route index element={<Dashboard />} />
+          <Route path="habits" element={<Habits />} />
+          <Route path="goals" element={<Goals />} />
+          <Route path="expenses" element={<Expenses />} />
+          <Route path="learning" element={<Learning />} />
+          <Route path="learning/:topicId" element={<TopicDetail />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
 
         {/* HTML Learning course — dedicated full-page docs layout */}

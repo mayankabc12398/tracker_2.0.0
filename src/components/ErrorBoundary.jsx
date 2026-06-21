@@ -1,10 +1,9 @@
-import { Component, } from 'react'
+import { Component } from 'react'
 import { AlertTriangle, RotateCcw } from 'lucide-react'
 import { Button } from './ui/Button'
+import { isChunkLoadError } from '@/lib/lazyWithRetry'
 
-
-
-
+const RELOAD_KEY = 'lf-chunk-reloaded'
 
 
 export class ErrorBoundary extends Component {
@@ -17,6 +16,17 @@ export class ErrorBoundary extends Component {
   componentDidCatch(error) {
     // In production this would report to Sentry/LogRocket.
     console.error('LifeFlow crashed:', error)
+
+    // Backstop: if a stale/failed code-split chunk slips through to here,
+    // reload once to fetch fresh chunks instead of showing a dead screen.
+    if (isChunkLoadError(error)) {
+      let alreadyReloaded = false
+      try {
+        alreadyReloaded = !!sessionStorage.getItem(RELOAD_KEY)
+        if (!alreadyReloaded) sessionStorage.setItem(RELOAD_KEY, '1')
+      } catch { /* sessionStorage may be unavailable */ }
+      if (!alreadyReloaded) window.location.reload()
+    }
   }
 
   render() {

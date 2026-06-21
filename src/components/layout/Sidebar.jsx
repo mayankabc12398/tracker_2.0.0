@@ -17,7 +17,7 @@ function NavList({ onNavigate, idPrefix }) {
         </div>
       </div>
 
-      <nav className="mt-6 flex-1 space-y-1">
+      <nav className="mt-6 min-h-0 flex-1 space-y-1 overflow-y-auto pr-1 [scrollbar-width:thin]">
         <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-600">Menu</p>
         {navItems.map((item) => (
           <SideLink key={item.to} {...item} onNavigate={onNavigate} idPrefix={idPrefix} />
