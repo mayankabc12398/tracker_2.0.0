@@ -35,13 +35,18 @@ export function AppLayout() {
               motion.div can suspend mid-mount, its enter animation never fires,
               and it stays stuck at opacity:0 — a blank screen until refresh. */}
           <Suspense fallback={<PageFallback />}>
+            {/* NOTE: do NOT add a persistent transform / will-change:transform
+                here. Any transformed ancestor makes child `position: fixed`
+                (modals, mobile drawer) resolve against THIS box instead of the
+                viewport — which shifts modals off-centre. The short y/opacity
+                tween is GPU-friendly on its own. */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Outlet />
               </motion.div>

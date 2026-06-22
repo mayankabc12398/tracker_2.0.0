@@ -75,10 +75,12 @@ export function Topbar({ onMenu }) {
             <>
               <div className="fixed inset-0 z-10" onClick={() => setShowNotifs(false)} />
               <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                className="glass absolute right-0 top-12 z-20 w-80 p-3"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                style={{ willChange: 'transform, opacity' }}
+                className="glass absolute right-0 top-12 z-20 w-80 transform-gpu p-3"
               >
                 <div className="mb-2 flex items-center justify-between px-1">
                   <p className="text-sm font-semibold text-white">Notifications</p>
@@ -125,10 +127,12 @@ export function Topbar({ onMenu }) {
             <>
               <div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />
               <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                className="glass absolute right-0 top-12 z-20 w-52 p-3"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                style={{ willChange: 'transform, opacity' }}
+                className="glass absolute right-0 top-12 z-20 w-52 transform-gpu p-3"
               >
                 <div className="border-b border-white/5 px-1 pb-2.5">
                   <p className="text-sm font-semibold text-white">{profile.name}</p>

@@ -83,14 +83,20 @@ export function MobileSidebar({ open, onClose }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             onClick={onClose}
           />
+          {/* Tween (not spring) glides open/close without the bouncy jitter a
+              high-stiffness spring shows over the blurred drawer on mobile.
+              transform-gpu + will-change keep the glass blur on its own GPU
+              layer so the slide stays buttery. */}
           <motion.aside
-            initial={{ x: -300 }}
+            initial={{ x: '-100%' }}
             animate={{ x: 0 }}
-            exit={{ x: -300 }}
-            transition={{ type: 'spring', stiffness: 360, damping: 36 }}
-            className="glass absolute left-0 top-0 flex h-full w-72 flex-col gap-1 rounded-none rounded-r-3xl p-4"
+            exit={{ x: '-100%' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            style={{ willChange: 'transform' }}
+            className="glass absolute left-0 top-0 flex h-full w-72 transform-gpu flex-col gap-1 rounded-none rounded-r-3xl p-4"
           >
             <button onClick={onClose} className="absolute right-4 top-4 text-slate-400 hover:text-white">
               <X size={20} />
