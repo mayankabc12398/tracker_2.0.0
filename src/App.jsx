@@ -3,11 +3,13 @@ import { Routes, Route } from 'react-router-dom'
 import { lazyWithRetry as lazy } from './lib/lazyWithRetry'
 import { AppLayout } from './components/layout/AppLayout'
 import { SyncManager } from './components/SyncManager'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { Toaster } from './components/ui/Toast'
 import { CardSkeleton } from './components/ui/Skeleton'
 import { useTheme } from './hooks/useTheme'
 
 // Code-split each module for faster first paint.
+const LoginPage = lazy(() => import('./pages/LoginPage'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Habits = lazy(() => import('./pages/Habits'))
 const Goals = lazy(() => import('./pages/Goals'))
@@ -64,9 +66,13 @@ export default function App() {
   return (
     <>
       <Routes>
+        {/* Public login route */}
+        <Route path="/login" element={<Suspense fallback={<PageFallback />}><LoginPage /></Suspense>} />
+
         {/* AppLayout renders a single Suspense above its page-transition
-            AnimatePresence, so these children don't need their own. */}
-        <Route element={<AppLayout />}>
+            AnimatePresence, so these children don't need their own.
+            Wrapped in ProtectedRoute → personal app pages require login. */}
+        <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="habits" element={<Habits />} />
           <Route path="goals" element={<Goals />} />

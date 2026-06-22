@@ -118,15 +118,22 @@ export function useSheetSync() {
         // 1) Cloud me jo hai woh neeche le aao (safe — empty se wipe nahi hota).
         applyHydration(remote)
         // 2) Jo entity cloud me missing hai par local me hai → upload (per-entity migration).
-        //    Isse purane sheet me bhi naye Habits/Goals tabs bina data loss ke ban jaate hain.
+        //    Har step ALAG try/catch me — ek tab fail (e.g. purana deploy jisme woh tab
+        //    nahi) ho to baaki migration na ruke aur poora bootstrap error me na jaaye.
         const st = useStore.getState()
-        if (!nonEmptyArr(remote.expenses) && st.transactions.length) await saveExpenses(st.transactions)
-        if (!nonEmptyArr(remote.habits) && st.habits.length) await saveHabits(st.habits)
-        if (!nonEmptyArr(remote.goals) && st.goals.length) await saveGoals(st.goals)
-        if (!nonEmptyArr(remote.topics) && st.topics.length) await saveTopics(st.topics)
-        if (!nonEmptyArr(remote.notifications) && st.notifications.length) await saveNotifications(st.notifications)
-        if (!nonEmptyObj(remote.settings)) await saveSettings({ profile: st.profile, settings: st.settings })
-        if (!nonEmptyObj(remote.progress)) await saveProgress(gatherProgress())
+        const steps = [
+          [!nonEmptyArr(remote.expenses) && st.transactions.length, () => saveExpenses(st.transactions)],
+          [!nonEmptyArr(remote.habits) && st.habits.length, () => saveHabits(st.habits)],
+          [!nonEmptyArr(remote.goals) && st.goals.length, () => saveGoals(st.goals)],
+          [!nonEmptyArr(remote.topics) && st.topics.length, () => saveTopics(st.topics)],
+          [!nonEmptyArr(remote.notifications) && st.notifications.length, () => saveNotifications(st.notifications)],
+          [!nonEmptyObj(remote.settings), () => saveSettings({ profile: st.profile, settings: st.settings })],
+          [!nonEmptyObj(remote.progress), () => saveProgress(gatherProgress())],
+        ]
+        for (const [cond, fn] of steps) {
+          if (!cond) continue
+          try { await fn() } catch (e) { console.error('[sync] migration step skipped', e) }
+        }
         statusStore().set('saved')
       } catch (e) {
         console.error('[sync] bootstrap failed', e)

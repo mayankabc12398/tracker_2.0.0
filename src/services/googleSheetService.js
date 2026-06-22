@@ -51,6 +51,44 @@ export const saveGoals = (list) => postTab('goals', list)
 export const saveTopics = (list) => postTab('topics', list)
 export const saveNotifications = (list) => postTab('notifications', list)
 
+// ── Login activity logging (append-only audit log) ────────────────────────────
+/** userAgent se DeviceType + Browser nikaalo. */
+function getDeviceInfo() {
+  const ua = navigator.userAgent || ''
+  let deviceType = 'Desktop'
+  if (/iPad|Tablet|PlayBook|Silk/i.test(ua)) deviceType = 'Tablet'
+  else if (/Mobi|Android|iPhone|iPod|Windows Phone/i.test(ua)) deviceType = 'Mobile'
+
+  let browser = 'Unknown'
+  if (/Edg\//i.test(ua)) browser = 'Edge'
+  else if (/OPR\/|Opera/i.test(ua)) browser = 'Opera'
+  else if (/Chrome\//i.test(ua) && !/Edg\//i.test(ua)) browser = 'Chrome'
+  else if (/Firefox\//i.test(ua)) browser = 'Firefox'
+  else if (/Safari\//i.test(ua) && !/Chrome\//i.test(ua)) browser = 'Safari'
+  return { deviceType, browser }
+}
+
+/** Local time → DD-MM-YYYY + hh:mm AM/PM. */
+function nowParts() {
+  const d = new Date()
+  const dd = String(d.getDate()).padStart(2, '0')
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const yyyy = d.getFullYear()
+  let h = d.getHours()
+  const min = String(d.getMinutes()).padStart(2, '0')
+  const ampm = h >= 12 ? 'PM' : 'AM'
+  h = h % 12 || 12
+  return { loginDate: `${dd}-${mm}-${yyyy}`, loginTime: `${h}:${min} ${ampm}` }
+}
+
+/** Successful login ko LoginActivity tab me append karo (LoginId backend auto deta hai). */
+export async function logLoginActivity(username) {
+  if (!sheetsEnabled) return
+  const { deviceType, browser } = getDeviceInfo()
+  const { loginDate, loginTime } = nowParts()
+  await postTab('loginActivity', { username, loginDate, loginTime, deviceType, browser, loginStatus: 'Success' })
+}
+
 // ── CRUD facade (Phase 3 spec: getAll/getById/create/update/delete/search) ────
 // Note: app khud Zustand + sync layer use karti hai. Yeh methods standalone /
 // programmatic use ke liye hain (expenses entity par operate karte hain).

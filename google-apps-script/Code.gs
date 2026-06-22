@@ -50,6 +50,7 @@ function doPost(e) {
   else if (tab === 'goals') writeGoals(payload);
   else if (tab === 'topics') writeTopics(payload);
   else if (tab === 'notifications') writeNotifications(payload);
+  else if (tab === 'loginActivity') return json({ ok: true, loginId: appendLoginActivity(payload) });
   else return json({ error: 'unknown tab: ' + tab });
   return json({ ok: true });
 }
@@ -180,6 +181,23 @@ function writeNotifications(list) {
   sh.appendRow(['id', 'data']);
   var rows = (list || []).map(function (n) { return [n.id, JSON.stringify(n)]; });
   if (rows.length) sh.getRange(2, 1, rows.length, 2).setValues(rows);
+}
+
+// ── LoginActivity tab: APPEND-ONLY audit log (overwrite nahi) ────────────────
+function appendLoginActivity(rec) {
+  var headers = ['LoginId', 'Username', 'LoginDate', 'LoginTime', 'DeviceType', 'Browser', 'LoginStatus'];
+  var sh = tab('LoginActivity', headers);
+  var loginId = sh.getLastRow(); // header row 1 → pehli entry ki id = 1
+  sh.appendRow([
+    loginId,
+    rec.username,
+    rec.loginDate,
+    rec.loginTime,
+    rec.deviceType,
+    rec.browser,
+    rec.loginStatus,
+  ]);
+  return loginId;
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────

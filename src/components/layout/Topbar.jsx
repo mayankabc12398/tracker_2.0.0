@@ -1,15 +1,25 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bell, Menu, Search, Moon, Sun, Check } from 'lucide-react'
+import { Bell, Menu, Search, Moon, Sun, Check, LogOut } from 'lucide-react'
 import { useStore } from '@/store/useStore'
 import { greeting } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
+import { useAuth } from '@/context/AuthContext'
+import { toast } from '@/components/ui/Toast'
 
 export function Topbar({ onMenu }) {
   const { profile, settings, updateSettings, notifications, markAllRead, markNotificationRead } = useStore()
+  const { username, logout } = useAuth()
   const [showNotifs, setShowNotifs] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
   const unread = notifications.filter((n) => !n.read).length
   const first = profile.name.split(' ')[0]
+
+  const handleLogout = () => {
+    setShowMenu(false)
+    logout() // ProtectedRoute turant /login par bhej dega
+    toast.info('Logged out')
+  }
 
   const toggleTheme = () =>
     updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })
@@ -101,8 +111,39 @@ export function Topbar({ onMenu }) {
         </AnimatePresence>
       </div>
 
-      <div className="grid h-10 w-10 place-items-center rounded-full bg-brand-gradient text-sm font-bold text-white">
-        {first.charAt(0)}
+      <div className="relative">
+        <button
+          onClick={() => setShowMenu((v) => !v)}
+          className="grid h-10 w-10 place-items-center rounded-full bg-brand-gradient text-sm font-bold text-white outline-none ring-2 ring-transparent transition hover:ring-white/20"
+          aria-label="Account menu"
+        >
+          {first.charAt(0)}
+        </button>
+
+        <AnimatePresence>
+          {showMenu && (
+            <>
+              <div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                className="glass absolute right-0 top-12 z-20 w-52 p-3"
+              >
+                <div className="border-b border-white/5 px-1 pb-2.5">
+                  <p className="text-sm font-semibold text-white">{profile.name}</p>
+                  {username && <p className="text-xs text-slate-500">@{username}</p>}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="mt-1 flex w-full items-center gap-2 rounded-xl px-2 py-2 text-left text-sm text-slate-300 transition hover:bg-white/5"
+                >
+                  <LogOut size={15} /> Logout
+                </button>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   )
