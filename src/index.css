@@ -21,6 +21,12 @@ body {
 }
 
 /* Light theme overrides */
+/* Reset color-scheme so native controls (time/date inputs, their picker icons,
+   selects, scrollbars) render light-themed instead of inheriting :root's dark
+   scheme — otherwise their text/icons come out light and vanish on white. */
+html.light {
+  color-scheme: light;
+}
 html.light body {
   @apply bg-slate-100 text-slate-800;
   background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 45%),
@@ -48,6 +54,35 @@ html.light body {
   html.light .input-base {
     @apply border-slate-300 bg-white text-slate-800 placeholder:text-slate-400;
   }
+}
+
+/* ───────────────────────────────────────────────────────────
+   Native <select> dropdown options
+   The popup is rendered by the OS and otherwise inherits the
+   select's light text colour, so options vanish on the popup's
+   white background in dark mode. Force readable colours per theme
+   and give them some breathing room. The selected/checked row uses
+   the brand colour where the browser allows it.
+   ─────────────────────────────────────────────────────────── */
+select option {
+  background-color: #15151f;
+  color: #e2e8f0;
+  padding: 10px 12px;
+  font-weight: 500;
+}
+select option:checked,
+select option:hover {
+  background-color: #6366f1;
+  color: #ffffff;
+}
+html.light select option {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+html.light select option:checked,
+html.light select option:hover {
+  background-color: #6366f1;
+  color: #ffffff;
 }
 
 /* ───────────────────────────────────────────────────────────

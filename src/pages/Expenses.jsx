@@ -137,7 +137,7 @@ export default function Expenses() {
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
             <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search transactions…" className="pl-9" />
           </div>
-          <Select value={catFilter} onChange={(e) => setCatFilter(e.target.value )} className="w-auto">
+          <Select value={catFilter} onChange={(e) => setCatFilter(e.target.value )} className="w-full sm:w-52">
             <option value="All">All categories</option>
             {CATS.map((c) => <option key={c}>{c}</option>)}
           </Select>

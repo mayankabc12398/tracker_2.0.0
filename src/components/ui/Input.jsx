@@ -23,11 +23,6 @@ export const Textarea = forwardRef(
 )
 Textarea.displayName = 'Textarea'
 
-export const Select = forwardRef(
-  ({ className, children, ...props }, ref) => (
-    <select ref={ref} className={cn('input-base appearance-none', className)} {...props}>
-      {children}
-    </select>
-  ),
-)
-Select.displayName = 'Select'
+// Re-exported so existing `import { Select } from '@/components/ui/Input'`
+// call sites keep working with the new themed dropdown.
+export { Select } from './Select'

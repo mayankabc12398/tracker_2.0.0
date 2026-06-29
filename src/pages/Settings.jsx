@@ -66,9 +66,9 @@ export default function Settings() {
                 <span className="text-sm capitalize text-slate-200">{k}</span>
                 <button
                   onClick={() => updateSettings({ notifications: { ...settings.notifications, [k]: !settings.notifications[k] } })}
-                  className={`relative h-6 w-11 rounded-full transition ${settings.notifications[k] ? 'bg-brand-gradient' : 'bg-white/10'}`}
+                  className={`relative h-6 w-11 rounded-full transition ${settings.notifications[k] ? 'bg-brand-gradient' : 'bg-slate-400/50'}`}
                 >
-                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all ${settings.notifications[k] ? 'left-[22px]' : 'left-0.5'}`} />
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm ring-1 ring-black/10 transition-all ${settings.notifications[k] ? 'left-[22px]' : 'left-0.5'}`} />
                 </button>
               </label>
             ))}

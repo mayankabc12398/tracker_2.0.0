@@ -14,7 +14,7 @@ export function Modal({ open, onClose, title, children, footer }) {
           {/* Overlay: only opacity animates (blur stays constant) → no per-frame
               re-rasterization of the backdrop on mobile. */}
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
