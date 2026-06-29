@@ -12,6 +12,7 @@ import { useTheme } from './hooks/useTheme'
 const LoginPage = lazy(() => import('./pages/LoginPage'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Habits = lazy(() => import('./pages/Habits'))
+const Alarm = lazy(() => import('./pages/Alarm'))
 const Goals = lazy(() => import('./pages/Goals'))
 const Expenses = lazy(() => import('./pages/Expenses'))
 const Learning = lazy(() => import('./pages/Learning'))
@@ -75,6 +76,7 @@ export default function App() {
         <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="habits" element={<Habits />} />
+          <Route path="alarm" element={<Alarm />} />
           <Route path="goals" element={<Goals />} />
           <Route path="expenses" element={<Expenses />} />
           <Route path="learning" element={<Learning />} />
