@@ -1,6 +1,143 @@
 // AI App Engineering content — Part 1: Foundations (what/how/tokens/first-call/model choice)
 
 export const aiAppContentA = {
+  'one-year-roadmap': {
+    overview:
+      'Yeh ek **12-mahine ka focused roadmap** hai jo aapko ek achhe React developer se ek **senior, AI-native engineer** banata hai — koi jo bade React apps architect kar sake, AI-powered products bana sake, AI-generated code review kar sake, aur frontend + backend + deployment samajhta ho. Target: **₹40–60 LPA** senior frontend / AI-enabled engineering roles ke liye strong profile. Roz sirf **1–2 focused ghante**, consistently — yahi is plan ki asli taakat hai. 🗺️',
+    why:
+      '5 saal ke experience ke saath aapki sabse badi opportunity ek aur naya framework seekhna nahi hai — balki wo engineer ban-na hai jo **strong frontend architecture ko practical AI integration ke saath jod kar** production-ready products tezi se aur high quality mein deliver kar sake. Yahi combination aaj market mein sabse zyada demand mein hai aur ₹40–60 LPA roles ki taraf le jaata hai. Yeh salary guarantee nahi, par yeh un skills ko banata hai jinhe companies actively dhoondh rahi hain.',
+    concept: [
+      { h: 'Phase 1 (M1–2): Elite React Engineer', p: 'React aata hai — ab **engineering depth** banao. Seekho: **Advanced TypeScript** (generics, utility types, discriminated unions), React architecture (feature-folders, composition), design patterns, **performance** (memo/useMemo, code-splitting, virtualization), accessibility (a11y), React 19 features, component libraries, advanced state management (Zustand/Query), aur testing fundamentals (React Testing Library). **Build**: ek reusable UI component library, ek professional dashboard, aur apne tracker ko best-practices se refactor. ✅ **Done when**: aap ek bade React app ka structure + trade-offs confidently justify kar sako.' },
+      { h: 'Phase 2 (M3–4): Become AI-Native', p: 'Yahin aapka **productivity advantage** banta hai. Seekho: prompt engineering for dev, AI-assisted code review, **LLM APIs**, streaming responses, AI chat interfaces, **RAG**, vector databases (pehle conceptually), AI agent fundamentals, **MCP** basics, aur AI dev workflows. **Build**: AI code explainer, AI documentation generator, aur tracker ke andar ek AI learning assistant. ✅ **Done when**: aap ek AI feature ko cost/latency/security ke saath ship kar sako. *(Yeh poora "AI App Engineering" course exactly yahi phase hai — iske 30 topics aapka Phase-2 curriculum hain.)*' },
+      { h: 'Phase 3 (M5–6): Backend for Frontend Engineers', p: 'Backend specialist nahi, par **comfortable** bano: **Node.js, Express**, authentication (JWT/sessions), authorization (roles), databases (SQL + NoSQL basics), file uploads, email services, caching (Redis idea), **WebSockets**, aur basic microservices concepts. **Build**: apne tracker ko `localStorage` se hatakar **real backend + login + cloud database + real user accounts** par le jaao. ✅ **Done when**: aap ek secure, DB-backed API khud design + deploy kar sako.' },
+      { h: 'Phase 4 (M7–8): System Design', p: 'Study: scalable frontend architecture, **caching layers**, CDN concepts, **rate limiting**, API design (REST/versioning), load balancing (high level), event-driven architecture (queues), monorepos, aur **CI/CD**. **Practice**: architecture diagrams samjhaao, trade-offs discuss karo, aur code likhne se pehle system ko **kaagaz par design** karo. ✅ **Done when**: aap ek "design X app" prompt par structured, trade-off-aware answer de sako.' },
+      { h: 'Phase 5 (M9–10): Portfolio Projects', p: 'Real problems solve karne wale projects: AI Resume Analyzer, AI Interview Assistant, AI Learning Platform, AI Expense Analyzer, collaborative PM app. **Best move**: apne tracker ko ek **flagship product** mein evolve karo — backend, AI mentor, personalized roadmaps, analytics, authentication, aur real-time collaboration. ✅ **Done when**: ek deployed, polished flagship jo architecture + FE + backend + AI ek saath dikhaye.' },
+      { h: 'Phase 6 (M11–12): Interview & Career Prep', p: 'Focus: frontend-relevant **DSA**, JavaScript deep dives, **React internals**, browser internals, TypeScript, **frontend system design**, behavioral interviews, resume, LinkedIn, mock interviews, aur salary negotiation. **Apply consistently** aur interview skills refine karte raho. ✅ **Done when**: mock interviews consistently clear ho rahe hon aur real offers aane lagein.' },
+    ],
+    analogy:
+      'Yeh roadmap ek **12-floor building banane** jaisa hai. 🏗️ Neenv (elite React) pehle, phir AI ki manzil (aapka superpower), phir backend ka structure, system design ke pillars, portfolio ki finishing, aur interview prep ki chaabi. Har mahina ek floor — agar aap random floors banao (aaj React, kal DSA, parso backend) to building khadi nahi hogi. Ek-ek floor, roz thoda-thoda, order mein — bas tabhi 12 mahine mein poori imaarat khadi hoti hai.',
+    visual: {
+      type: 'timeline',
+      items: [
+        { year: 'M1–2', text: 'Elite React: Advanced TS, architecture, patterns, performance, a11y, component library, testing.' },
+        { year: 'M3–4', text: 'AI-Native: LLM APIs, streaming, chat UI, RAG, vectors, agents, MCP, AI dev workflows.' },
+        { year: 'M5–6', text: 'Backend for FE: Node, Express, auth, DB, uploads, email, caching, WebSockets.' },
+        { year: 'M7–8', text: 'System Design: scaling, caching, CDN, rate-limiting, API design, event-driven, CI/CD.' },
+        { year: 'M9–10', text: 'Portfolio: flagship platform + real-problem AI projects.' },
+        { year: 'M11–12', text: 'Interviews: DSA, JS/React/browser internals, FE system design, mock, negotiation.' },
+      ],
+    },
+    process: {
+      type: 'boxes',
+      items: [
+        { label: 'Elite React', sub: 'M1–2', color: '#3B82F6' },
+        { label: 'AI-Native', sub: 'M3–4', color: '#8B5CF6' },
+        { label: 'Backend', sub: 'M5–6', color: '#06B6D4' },
+        { label: 'System Design', sub: 'M7–8', color: '#F59E0B' },
+        { label: 'Portfolio', sub: 'M9–10', color: '#22C55E' },
+        { label: 'Interviews', sub: 'M11–12', color: '#F43F5E' },
+      ],
+    },
+    steps: [
+      'Ek **flagship product** chuno (apna tracker) — har phase usi mein add hota jaaye, bikhre demos nahi.',
+      'Roz **1–2 focused ghante** — consistency > intensity. Weekly cadence follow karo (neeche table).',
+      'Har phase ka **build deliverable** poora karo — sirf padho mat, ship karo.',
+      'Har hafte kuch **document** karo (README/notes) — yeh interview stories ban-te hain.',
+      'Phase 5–6 mein **apply karna shuru** karo aur mock interviews se refine karte raho.',
+    ],
+    compare: {
+      headers: ['Day', 'Focus'],
+      rows: [
+        ['Monday', 'React architecture'],
+        ['Tuesday', 'TypeScript / JavaScript internals'],
+        ['Wednesday', 'AI integration'],
+        ['Thursday', 'Backend fundamentals'],
+        ['Friday', 'System design'],
+        ['Saturday', 'Build or improve a project'],
+        ['Sunday', 'Review, document & practice interview Qs'],
+      ],
+    },
+    notes: {
+      concept: 'Goal: frontend architecture + practical AI integration ko jodne wala senior engineer banna — ₹40–60 LPA profile.',
+      tip: 'Ek flagship product mein invest karo (tracker → full platform), 10 unrelated demos ke bajaye.',
+      warning: 'Har phase ek pichle par khadा hai — order skip mat karo; foundation (React+TS) pehle.',
+      error: 'Sirf padhna aur build na karna — deliverables hi profile banate hain, notes nahi.',
+    },
+    best: [
+      'Roz 1–2 focused ghante, consistently — yahi asli lever hai.',
+      'Ek flagship product deep karo, bikhre projects mat banao.',
+      'High-quality resources chuno (sab consume karne ki koshish mat karo).',
+      'Har phase ka build ship karo aur document karo.',
+      'Phase 5 se apply + mock interviews shuru; feedback se iterate.',
+    ],
+    projects: [
+      'Flagship: Developer Learning & AI Platform (tracker se evolve)',
+      'Auth + cloud sync + real user accounts',
+      'AI mentor + personalized learning paths',
+      'Interview prep + coding challenges + AI-generated quizzes',
+      'Progress analytics + notes + bookmarks',
+      'AI code reviewer + AI project generator',
+      'Resume builder + portfolio tracking + job dashboards',
+      'Real-time collaboration',
+    ],
+    cheatsheet: [
+      { h: 'Core resources', code: `The Road to React\nDesigning Data-Intensive Apps (selected)\nOfficial React + TypeScript docs\nNode.js docs\nYour AI provider's API docs\nEngineering blogs (top companies)` },
+      { h: '12-month arc', code: `M1-2  Elite React + TS\nM3-4  AI-Native (this course!)\nM5-6  Backend for FE\nM7-8  System Design\nM9-10 Portfolio (flagship)\nM11-12 Interviews + apply` },
+    ],
+    advanced:
+      'Ek line ki asli advice: 5 saal ke experience ke saath har kuch mahine mein naya framework seekhna aapka biggest lever **nahi** hai. Wo engineer ban-na jo **strong frontend architecture + practical AI integration** ko jod kar production-ready apps tezi aur high quality se deliver kare — yahi aaj ki market ke saath align karta hai. Consistent 1–2 ghante/din is direction mein lagao; salary ki guarantee nahi, par yeh exactly wo skills banata hai jinhe companies dhoondh rahi hain.',
+    exercises: {
+      easy: ['Apne next 4 hafton ka weekly-schedule (Mon–Sun) apne calendar mein block karo.'],
+      medium: ['Phase 1 ka ek deliverable chuno (component library ya dashboard) aur uska scope likho.'],
+      advanced: ['Apne tracker ka "flagship platform" vision ek 1-page architecture doc mein likho (auth, AI mentor, analytics, collab).'],
+    },
+    summary: [
+      '12 mahine, 6 phases: Elite React → AI-Native → Backend → System Design → Portfolio → Interviews.',
+      'Target: senior frontend + AI-enabled engineer, ₹40–60 LPA profile.',
+      'Roz 1–2 focused ghante; weekly day-wise cadence.',
+      'Ek flagship product (tracker) mein invest karo, bikhre demos nahi.',
+      'Har phase ship + document karo; Phase 5 se apply + mock interviews.',
+    ],
+    examples: [
+      {
+        level: 'Practical',
+        title: 'Phase 2 (AI-Native) — ek sample 4-hafton ka sprint',
+        lang: 'js',
+        code: `Week 1  LLM APIs + prompting\n  - first API call via backend proxy (key safe)\n  - system prompts + structured output (JSON)\n  - deliverable: /api/summarize + /api/rewrite\n\nWeek 2  Streaming + chat UI\n  - SSE streaming from proxy\n  - React chat: live typing + stop button\n  - deliverable: streaming assistant inside tracker\n\nWeek 3  RAG\n  - chunk -> embed -> vector DB\n  - retrieve + augment + cite sources\n  - deliverable: "chat with your notes"\n\nWeek 4  Tools + agents + MCP\n  - tool calling (validated args)\n  - simple agent loop (max-steps cap)\n  - deliverable: AI code explainer`,
+        explain: 'Har hafte ek concrete **deliverable** — sirf padhna nahi, ship karna. Yahi "skill → build → document" pattern har phase par apply karo. (Ye 4 weeks basically is course ke topics hain.)',
+      },
+    ],
+    mistakes: [
+      { bad: 'Har mahine naya framework/tech chase karna (shiny-object syndrome).', fix: 'Roadmap follow karo; ek flagship product mein depth banao — 5 saal ke baad depth > breadth.' },
+      { bad: 'Sirf tutorials/videos dekhna, khud build na karna ("tutorial hell").', fix: 'Har phase ka deliverable ship karo — profile builds se banta hai, notes se nahi.' },
+      { bad: 'Foundation (React + TS) skip karke seedha AI/backend par kudna.', fix: 'Phases order mein — har ek pichle par khada hai.' },
+      { bad: 'Interview prep (Phase 6) ko aakhri 2 mahine tak taalna.', fix: 'Sunday ko thoda-thoda poore saal; Phase 5 se apply karna shuru karo.' },
+      { bad: '10 bikhre demo projects banana.', fix: 'Ek flagship platform — architecture + FE + backend + AI ek jagah dikhao.' },
+      { bad: '1–2 ghante ki consistency chhod kar weekend-binge karna.', fix: 'Rozana chhota compounding > kabhi-kabhi ka burst. Streak banao.' },
+    ],
+    interview: {
+      beginner: [
+        { q: 'Aap khud ko kaise position karoge (target profile)?', a: 'Ek senior frontend engineer jo strong React architecture ko practical AI integration ke saath jodkar production-ready products tezi aur high quality se deliver karta hai.' },
+        { q: 'Is roadmap ka core bet kya hai?', a: 'Har baar naya framework seekhne ke bajaye frontend architecture + AI integration combine karna — aaj market ki sabse zyada demand yahi hai.' },
+      ],
+      intermediate: [
+        { q: 'Har phase senior interview mein kya test karta hai?', a: 'React/TS depth (Ph1), AI product sense (Ph2), backend comfort (Ph3), system design + trade-offs (Ph4), real shipped projects (Ph5), DSA + internals + behavioral (Ph6).' },
+        { q: 'Flagship project ko interview mein kaise pitch karein?', a: 'Problem → architecture → trade-offs → FE/backend/AI decisions → metrics (cost, latency, impact). Live demo + numbers sabse strong.' },
+      ],
+      advanced: [
+        { q: '₹40–60 LPA roles ka asli differentiator kya hai?', a: 'Sirf coding nahi — architecture decisions justify karna, AI features ko cost/latency/security ke saath ship karna, aur system design + behavioral dono strong hona.' },
+        { q: 'Roadmap complete hone ke baad next step?', a: 'Consistently apply karo, portfolio + LinkedIn refine karo, mock interviews se gaps close karo, aur salary negotiation prep karo — shipped product ko loudly showcase karo.' },
+      ],
+    },
+    mcqs: [
+      { q: 'Is roadmap ka #1 lever kya hai?', options: ['Har mahine naya framework', 'Roz 1–2 focused ghante consistently', 'Zyada tutorials dekhna', 'Sirf DSA'], answer: 1, explain: 'Consistency > intensity — chhota daily compounding 12 mahine mein bada farak.' },
+      { q: 'Kitne projects par focus karna chahiye?', options: ['10+ bikhre demos', 'Ek flagship product', 'Zero, sirf theory', 'Random projects'], answer: 1, explain: 'Ek flagship platform architecture + FE + backend + AI ek saath dikhata hai.' },
+      { q: 'AI-Native phase (M3–4) kya advantage deta hai?', options: ['Productivity + higher-quality delivery', 'Sirf CSS skills', 'Typing speed', 'Kuch nahi'], answer: 0, explain: 'AI integration se aap tezi aur behtar quality mein ship karte ho.' },
+      { q: 'Backend phase (M5–6) ka goal?', options: ['Backend specialist banna', 'Comfortable + DB-backed app deploy karna', 'Backend ignore karna', 'Sirf theory'], answer: 1, explain: 'Specialist nahi — comfortable; tracker ko real backend + auth + cloud DB par le jaao.' },
+    ],
+    related: ['what-is-ai-app', 'rag-pipeline', 'real-projects', 'interview-questions'],
+  },
+
   'what-is-ai-app': {
     overview:
       'Ek **AI-enabled web app** wahi purani web app hai (React frontend + backend), bas usme ek naya "brain" jud gaya hai — ek **LLM (Large Language Model)** jaise Claude ya GPT. Normal app fixed rules par chalti hai (`if/else`), lekin AI app **natural language** samajh kar dynamically decide karti hai: summarize karo, likho, classify karo, answer do, ya koi tool chalao. Aap LLM ko ek **HTTP API** ki tarah call karte ho — request bhejo, response lo — aur usse apni product feature bana lete ho. 🤖',

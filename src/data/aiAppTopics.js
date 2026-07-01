@@ -2,6 +2,7 @@
 // Topic metadata, colour-coded groups, difficulty (Beginner → Expert).
 
 export const aiAppGroups = [
+  { id: 'roadmap', label: 'Career Roadmap', color: '#F43F5E' },
   { id: 'foundations', label: 'AI App Foundations', color: '#06B6D4' },
   { id: 'prompting', label: 'Prompting for Products', color: '#22D3EE' },
   { id: 'integration', label: 'Integrating LLMs', color: '#3B82F6' },
@@ -16,6 +17,9 @@ export const aiAppGroups = [
 
 // difficulty: 1 Beginner · 2 Intermediate · 3 Advanced · 4 Expert
 export const aiAppTopics = [
+  // ── Career Roadmap (orientation) ──
+  { slug: 'one-year-roadmap', title: '12-Month Roadmap: React + AI Engineer', hi: '1 saal ka plan — senior tak (₹40–60 LPA)', group: 'roadmap', icon: '🗺️', minutes: 15, level: 1 },
+
   // ── AI App Foundations (Beginner) ──
   { slug: 'what-is-ai-app', title: 'What is an AI-Enabled Web App?', hi: 'AI-powered app kya hota hai', group: 'foundations', icon: '🤖', minutes: 8, level: 1 },
   { slug: 'how-llms-work', title: 'How LLMs Work (for Builders)', hi: 'LLM andar se kaise kaam karta hai', group: 'foundations', icon: '🧠', minutes: 10, level: 1 },
