@@ -20,26 +20,84 @@ function withToken(url) {
 }
 
 // ── Low-level transport ───────────────────────────────────────────────────────
+// Mobile networks flaky hote hain + Apps Script cold-start/redirect slow hota hai.
+// Isliye har request ke saath: (a) timeout (warna hang ho jaata, indicator atak jaata),
+// (b) chhota retry-with-backoff (transient blip apne aap recover ho jaaye).
+const REQUEST_TIMEOUT = 15000 // ms — Apps Script cold start ke liye thoda generous
+const MAX_RETRIES = 2
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+/** Browser offline? (mobile me tab-switch / tunnel / lift me common.) */
+export function isOffline() {
+  return typeof navigator !== 'undefined' && navigator.onLine === false
+}
+
+/** Network error ko "transient" (retry worth) maano vs "hard" (4xx) — taaki spam na ho. */
+export class OfflineError extends Error {
+  constructor(msg = 'offline') { super(msg); this.name = 'OfflineError'; this.offline = true }
+}
+
+/** fetch + AbortController timeout. Hang hone par REQUEST_TIMEOUT baad reject. */
+async function fetchWithTimeout(url, options = {}) {
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), REQUEST_TIMEOUT)
+  try {
+    return await fetch(url, { ...options, signal: controller.signal })
+  } finally {
+    clearTimeout(id)
+  }
+}
+
+/** Retry wrapper: network/abort/5xx → backoff retry; 4xx → turant fail (retry bekaar). */
+async function request(url, options, label) {
+  if (isOffline()) throw new OfflineError() // timeout ka wait kiye bina turant — UI quiet rahe
+  let lastErr
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const res = await fetchWithTimeout(url, options)
+      if (!res.ok) {
+        // 5xx / 429 → server transient, retry; baaki (4xx) → permanent, mat retry.
+        if ((res.status >= 500 || res.status === 429) && attempt < MAX_RETRIES) {
+          lastErr = new Error(`${label} ${res.status}`)
+          await sleep(500 * 2 ** attempt)
+          continue
+        }
+        throw new Error(`${label} failed: ${res.status}`)
+      }
+      const data = await res.json()
+      if (data && data.error) throw new Error('Sheets error: ' + data.error)
+      return data
+    } catch (e) {
+      lastErr = e
+      // AbortError (timeout) ya network failure → retry; warna (parse/server 4xx) → throw.
+      const transient = e.name === 'AbortError' || e instanceof TypeError || /\b(429|5\d\d)\b/.test(e.message)
+      if (transient && attempt < MAX_RETRIES) {
+        await sleep(500 * 2 ** attempt)
+        continue
+      }
+      throw lastErr
+    }
+  }
+  throw lastErr
+}
+
 /** Poora dataset laao: { expenses:[...], progress:{...}, settings:{...} } */
 export async function fetchAllData() {
-  const res = await fetch(withToken(API_URL), { method: 'GET' })
-  if (!res.ok) throw new Error('Sheets GET failed: ' + res.status)
-  const data = await res.json()
-  if (data && data.error) throw new Error('Sheets error: ' + data.error)
-  return data
+  return request(withToken(API_URL), { method: 'GET' }, 'Sheets GET')
 }
 
 /** Ek tab ko overwrite karo (last-writer-wins). tab: 'expenses'|'progress'|'settings'. */
 async function postTab(tab, payload) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // simple request → no CORS preflight
-    body: JSON.stringify({ tab, payload, token: TOKEN || undefined }),
-  })
-  if (!res.ok) throw new Error('Sheets POST failed: ' + res.status)
-  const data = await res.json()
-  if (data && data.error) throw new Error('Sheets error: ' + data.error)
-  return data
+  return request(
+    API_URL,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // simple request → no CORS preflight
+      body: JSON.stringify({ tab, payload, token: TOKEN || undefined }),
+    },
+    'Sheets POST',
+  )
 }
 
 // Tab-level savers (sync layer inhe use karta hai — har save = 1 API call).

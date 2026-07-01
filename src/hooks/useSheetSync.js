@@ -22,7 +22,7 @@ import { useAiProgress } from '@/store/useAiProgress'
 import { useSyncStatus } from '@/store/useSyncStatus'
 import { toast } from '@/components/ui/Toast'
 import {
-  sheetsEnabled, fetchAllData, saveExpenses, saveProgress, saveSettings, saveHabits, saveGoals,
+  sheetsEnabled, isOffline, fetchAllData, saveExpenses, saveProgress, saveSettings, saveHabits, saveGoals,
   saveTopics, saveNotifications,
 } from '@/services/googleSheetService'
 
@@ -90,6 +90,21 @@ function applyHydration(remote) {
   }
 }
 
+// Error toast ko throttle karo — mobile pe navigation/visibility ke dauraan barbaar
+// fail ho sakta hai; har baar scary toast dikhana annoying hai. Offline hone par toh
+// bilkul nahi (expected state — indicator hi kaafi). Local data hamesha safe hai.
+let lastErrorToast = 0
+const ERROR_TOAST_GAP = 60000 // ms — ek minute me ek hi baar
+
+function notifyFailure() {
+  statusStore().set('error')
+  if (isOffline()) return // offline = expected, sirf quiet indicator
+  const now = Date.now()
+  if (now - lastErrorToast < ERROR_TOAST_GAP) return
+  lastErrorToast = now
+  toast.error('Cloud sync abhi nahi ho paaya — data local me safe hai, connection wapas aate hi sync ho jaayega')
+}
+
 /** Push wrapper — status update + error handling (Phase 6: no data loss, toasts). */
 async function safePush(fn) {
   try {
@@ -98,8 +113,7 @@ async function safePush(fn) {
     statusStore().set('saved')
   } catch (e) {
     console.error('[sync] push failed', e)
-    statusStore().set('error')
-    toast.error('Cloud sync fail hua — data local me safe hai, agli baar retry hoga')
+    notifyFailure()
   }
 }
 
@@ -138,20 +152,33 @@ export function useSheetSync() {
       } catch (e) {
         console.error('[sync] bootstrap failed', e)
         statusStore().set('error')
-        toast.error('Cloud se data laane me dikkat — filhaal local data dikha rahe hain')
+        // Offline boot pe scary toast mat do — local data already dikh raha hai.
+        if (!isOffline()) toast.error('Cloud se data laane me dikkat — filhaal local data dikha rahe hain')
       } finally {
         ready = true
       }
     }
 
+    // Mobile pe visibilitychange/focus barbaar firte hain (app-switch, address bar,
+    // screen lock). Bina guard ke yeh concurrent fetch ki jhadi laga deta hai jo
+    // network choke karke fail hoti hai. In-flight guard + throttle + offline-skip.
+    let refreshing = false
+    let lastRefresh = 0
+    const REFRESH_GAP = 8000 // ms
     async function refresh() {
-      if (!ready || cancelled) return
+      if (!ready || cancelled || refreshing || isOffline()) return
+      const now = Date.now()
+      if (now - lastRefresh < REFRESH_GAP) return
+      lastRefresh = now
+      refreshing = true
       try {
         const remote = await fetchAllData()
         if (cancelled) return
         applyHydration(remote)
       } catch (e) {
-        console.error('[sync] refresh failed', e)
+        console.error('[sync] refresh failed', e) // chup raho — push wala toast hi kaafi hai
+      } finally {
+        refreshing = false
       }
     }
 
@@ -201,7 +228,10 @@ export function useSheetSync() {
 
     // (Phase 5) Dusre device ke changes — jab tab wapas focus/visible ho refetch.
     const onVisible = () => { if (document.visibilityState === 'visible') refresh() }
+    // Connection wapas aate hi turant sync (mobile pe sabse common recovery path).
+    const onOnline = () => { lastRefresh = 0; refresh() }
     window.addEventListener('focus', refresh)
+    window.addEventListener('online', onOnline)
     document.addEventListener('visibilitychange', onVisible)
 
     return () => {
@@ -209,6 +239,7 @@ export function useSheetSync() {
       ready = false
       unsubs.forEach((u) => u())
       window.removeEventListener('focus', refresh)
+      window.removeEventListener('online', onOnline)
       document.removeEventListener('visibilitychange', onVisible)
     }
   }, [])
