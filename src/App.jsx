@@ -52,6 +52,11 @@ const AiLayout = lazy(() => import('./learn/AiLayout').then((m) => ({ default: m
 const AiHome = lazy(() => import('./learn/AiHome'))
 const AiTopicPage = lazy(() => import('./learn/AiTopicPage'))
 
+// AI App Engineering course
+const AiAppLayout = lazy(() => import('./learn/AiAppLayout').then((m) => ({ default: m.AiAppLayout })))
+const AiAppHome = lazy(() => import('./learn/AiAppHome'))
+const AiAppTopicPage = lazy(() => import('./learn/AiAppTopicPage'))
+
 function PageFallback() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -121,6 +126,12 @@ export default function App() {
         <Route path="/learn/ai" element={<Suspense fallback={<PageFallback />}><AiLayout /></Suspense>}>
           <Route index element={<Suspense fallback={<PageFallback />}><AiHome /></Suspense>} />
           <Route path=":slug" element={<Suspense fallback={<PageFallback />}><AiTopicPage /></Suspense>} />
+        </Route>
+
+        {/* AI App Engineering course */}
+        <Route path="/learn/ai-apps" element={<Suspense fallback={<PageFallback />}><AiAppLayout /></Suspense>}>
+          <Route index element={<Suspense fallback={<PageFallback />}><AiAppHome /></Suspense>} />
+          <Route path=":slug" element={<Suspense fallback={<PageFallback />}><AiAppTopicPage /></Suspense>} />
         </Route>
       </Routes>
       <SyncManager />

@@ -11,6 +11,7 @@ import {
   Atom,
   Globe,
   Bot,
+  Rocket,
   BarChart3,
   CalendarDays,
   User,
@@ -30,6 +31,7 @@ export const navItems = [
   { to: '/learn/react', label: 'React Course', icon: Atom },
   { to: '/learn/browser', label: 'Browser Internals', icon: Globe },
   { to: '/learn/ai', label: 'AI Integration', icon: Bot },
+  { to: '/learn/ai-apps', label: 'AI App Engineering', icon: Rocket },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
 ]
