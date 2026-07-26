@@ -136,6 +136,34 @@ html.light .bg-brand-amber * {
 /* Recharts tooltip stays light-on-dark in both themes for legibility */
 html.light .recharts-cartesian-axis-tick-value { fill: #475569; }
 
+/* ───────────────────────────────────────────────────────────
+   Learn / course pages (HTML/CSS/JS/React/Browser/AI/AI-Apps)
+   are a SELF-CONTAINED DARK docs surface in BOTH themes — their
+   layout roots + mobile drawer hardcode bg-[#0F172A]. The global
+   light remapping above would recolour their text to dark (→
+   invisible on the dark surface) and flatten their white tints.
+   Re-assert dark-surface values, scoped to the docs shell's
+   bg-[#0F172A] container so specificity beats the light rules.
+   Fixes light-mode readability in course pages AND the mobile
+   sidebar overlay drawer.
+   ─────────────────────────────────────────────────────────── */
+html.light .bg-\[\#0F172A\].text-slate-200 { color: #e2e8f0; }
+html.light .bg-\[\#0F172A\] .text-white { color: #f8fafc; }
+html.light .bg-\[\#0F172A\] .text-slate-100 { color: #f1f5f9; }
+html.light .bg-\[\#0F172A\] .text-slate-200 { color: #e2e8f0; }
+html.light .bg-\[\#0F172A\] .text-slate-300 { color: #cbd5e1; }
+html.light .bg-\[\#0F172A\] .text-slate-400 { color: #94a3b8; }
+html.light .bg-\[\#0F172A\] .text-slate-500 { color: #64748b; }
+html.light .bg-\[\#0F172A\] .text-slate-600 { color: #475569; }
+html.light .bg-\[\#0F172A\] .bg-white\/\[0\.02\] { background-color: rgba(255, 255, 255, 0.02); }
+html.light .bg-\[\#0F172A\] .bg-white\/\[0\.03\] { background-color: rgba(255, 255, 255, 0.03); }
+html.light .bg-\[\#0F172A\] .bg-white\/\[0\.04\] { background-color: rgba(255, 255, 255, 0.04); }
+html.light .bg-\[\#0F172A\] .bg-white\/\[0\.05\] { background-color: rgba(255, 255, 255, 0.05); }
+html.light .bg-\[\#0F172A\] .bg-white\/\[0\.06\] { background-color: rgba(255, 255, 255, 0.06); }
+html.light .bg-\[\#0F172A\] .border-white\/5 { border-color: rgba(255, 255, 255, 0.05); }
+html.light .bg-\[\#0F172A\] .border-white\/10 { border-color: rgba(255, 255, 255, 0.1); }
+html.light .bg-\[\#0F172A\] .border-white\/20 { border-color: rgba(255, 255, 255, 0.2); }
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
