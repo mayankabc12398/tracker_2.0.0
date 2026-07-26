@@ -19,6 +19,7 @@ export const aiAppGroups = [
 export const aiAppTopics = [
   // ── Career Roadmap (orientation) ──
   { slug: 'one-year-roadmap', title: '12-Month Roadmap: React + AI Engineer', hi: '1 saal ka plan — senior tak (₹40–60 LPA)', group: 'roadmap', icon: '🗺️', minutes: 15, level: 1 },
+  { slug: 'early-intermediate', title: 'Early Intermediate: 90-Day Reality Check', hi: '5 saal baad — sach, aur 90-din ka plan (₹12–15 LPA)', group: 'roadmap', icon: '🪞', minutes: 16, level: 2 },
 
   // ── AI App Foundations (Beginner) ──
   { slug: 'what-is-ai-app', title: 'What is an AI-Enabled Web App?', hi: 'AI-powered app kya hota hai', group: 'foundations', icon: '🤖', minutes: 8, level: 1 },

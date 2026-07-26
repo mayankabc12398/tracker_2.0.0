@@ -5,7 +5,7 @@ import {
   BookOpen, GraduationCap, Lightbulb, Eye, Code2, Info, Table2, Target,
   AlertTriangle, Star, HelpCircle, ListChecks, Dumbbell, Rocket, Zap, Trophy,
   Link2, ChevronRight, Check, Bookmark, ArrowLeft, ArrowRight, Clock, MessageSquareQuote,
-  Cpu, Wand2, ScrollText, ListOrdered, Gauge, Network,
+  Cpu, Wand2, ScrollText, ListOrdered, Gauge, Network, FileText, ExternalLink,
 } from 'lucide-react'
 import { aiAppContent } from '@/data/aiAppContent'
 import { aiAppTopics, aiAppTopicBySlug, aiAppGroupById, AIAPP_LEVELS } from '@/data/aiAppTopics'
@@ -26,6 +26,7 @@ const LEVEL_TONE = { Beginner: 'text-green-300 bg-green-500/15', Intermediate: '
 // Section config — colour-coded, only the ones present in a topic render.
 function buildSections(c) {
   return [
+    { id: 'pdf', label: '📄 Roadmap PDF', icon: FileText, color: '#F43F5E', has: !!c.pdf },
     { id: 'overview', label: '🔵 Introduction', icon: BookOpen, color: '#3B82F6', has: !!c.overview },
     { id: 'why', label: '🟠 Why It Matters', icon: Target, color: '#F97316', has: !!c.why },
     { id: 'concept', label: '🔵 Detailed Explanation', icon: GraduationCap, color: '#06B6D4', has: !!c.concept },
@@ -171,6 +172,23 @@ export default function AiAppTopicPage() {
 // ───────────────────────── per-section renderers ─────────────────────────
 function renderSection(id, c) {
   switch (id) {
+    case 'pdf': {
+      const p = typeof c.pdf === 'string' ? { url: c.pdf } : c.pdf
+      return (
+        <div className="overflow-hidden rounded-2xl border border-rose-500/25 bg-rose-500/[0.04]">
+          <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-2.5">
+            <span className="flex items-center gap-2 text-sm font-medium text-slate-200">
+              <FileText size={15} className="text-rose-400" /> {p.title || 'Roadmap PDF'}
+            </span>
+            <a href={p.url} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 rounded-lg bg-white/5 px-2.5 py-1 text-xs text-slate-300 transition hover:bg-white/10">
+              <ExternalLink size={12} /> New tab
+            </a>
+          </div>
+          <iframe src={p.url} title={p.title || 'Roadmap PDF'} loading="lazy" className="h-[80vh] w-full bg-white" />
+        </div>
+      )
+    }
+
     case 'overview':
       return <div className="rounded-2xl border border-blue-500/25 bg-blue-500/[0.05] p-5"><Prose text={c.overview} className="text-[15px]" /></div>
 

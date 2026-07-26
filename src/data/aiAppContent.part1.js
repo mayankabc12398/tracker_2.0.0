@@ -1,4 +1,5 @@
 // AI App Engineering content — Part 1: Foundations (what/how/tokens/first-call/model choice)
+import reactRoadmapPdf from '../assets/React-Roadmap-Honest-Evaluation.pdf'
 
 export const aiAppContentA = {
   'one-year-roadmap': {
@@ -136,6 +137,126 @@ export const aiAppContentA = {
       { q: 'Backend phase (M5–6) ka goal?', options: ['Backend specialist banna', 'Comfortable + DB-backed app deploy karna', 'Backend ignore karna', 'Sirf theory'], answer: 1, explain: 'Specialist nahi — comfortable; tracker ko real backend + auth + cloud DB par le jaao.' },
     ],
     related: ['what-is-ai-app', 'rag-pipeline', 'real-projects', 'interview-questions'],
+  },
+
+  'early-intermediate': {
+    pdf: { url: reactRoadmapPdf, title: 'React Roadmap — Honest Evaluation (PDF)' },
+    overview:
+      'Yeh ek **seedhi, bina sugar-coat** wali reality check hai un developers ke liye jinke resume par **5 saal** likha hai lekin capability **1.5–2 saal** ki hai — "1 saal ka experience, jo 5 baar repeat hua". Yeh page batata hai ki tum kahan atke ho, **kyun** atke ho, aur ek **30-60-90 din ka plan** deta hai jo sirf **30 minute/din** par bana hai — padhne ke liye nahi, **banane** ke liye. Goal 90 din mein ₹12–15 LPA offer nahi — ek **asli trajectory** aur proof ki tum consistent reh sakte ho. 🪞',
+    why:
+      '12–15 LPA ka interview implementation ke baare mein nahi hota. Woh puchhta hai — "state management kya choose karoge aur **kyun**", "yeh component slow hai, kaise **debug** karoge", "aisa design karo jo **3 saal baad bhi maintain** ho". In sawaalon ke jawab codebase mein baithne se nahi, **decisions lene se** aate hain. Market resume nahi, **capability** kharidta hai — aur woh 40 minute mein pakad li jaati hai. Isliye asli bottleneck skill nahi, **judgment + consistency** hai.',
+    concept: [
+      { h: 'Skill vs Experience — asli farq', p: '5 saal ka experience ≠ 5 saal ka developer. Zero se koi system architect nahi kiya — bade project par kaam kiya, use **design** nahi kiya. 5 saal mein ek bhi technical decision defend nahi kiya → raaye hi nahi bani, kyunki raaye tab banti hai jab tumne khud **trade-off jhela** ho. Tum ek competent **implementer** ho: ticket do, ho jayega. Lekin blank folder + "ismein product banao" = wahin atkoge. 12–15 LPA exactly usi cheez ka paisa hai.' },
+      { h: 'Strength 1 — Khud se jhooth nahi bol rahe', p: 'Consistency par khud ko 1/10 dena aasaan nahi. Zyadatar log 6 bolte hain jab sach 2 hai. Tumne sach bola aur exact failure pattern bhi bataya — "ek din nahi kiya, phir agle din nahi, phir chhoot gaya". Yeh self-awareness hai. Iske bina koi plan kaam nahi karta, kyunki galat problem solve hoti rehti hai.' },
+      { h: 'Strength 2 — Bade production codebase mein survive', p: '50-module project, 5 saal, tum abhi bhi wahan ho. Matlab legacy code padh sakte ho, existing patterns follow kar sakte ho, aur bina break kiye ship kar sakte ho. Chhota lagta hai — hai nahi. Bahut log jo shaandaar side-projects banate hain woh 10,000-file codebase mein pehle hafte doob jaate hain. Yeh tumhara **base** hai.' },
+      { h: 'Weakness 1 — Ownership na li, isliye judgment nahi bana', p: 'Implementation aur engineering judgment do alag cheezein hain. Judgment tab banta hai jab tum decision lo, woh galat nikle, aur uska dard tum khud bhugto. 5 saal yeh dard avoid kiya. Isliye "useEffect kaise likhte hain" bata sakte ho, par "is case mein useEffect use hi nahi karna chahiye tha" nahi bata paoge.' },
+      { h: 'Weakness 2 — "Seekhna" ko "practice" samajhna', p: '"Samajh aa raha tha, kuch ban nahi raha tha" — poore conversation ki sabse important line. ChatGPT se topic samajhna = comprehension, capability nahi. Samajhna aasaan lagta hai aur **nasha** deta hai. 3 hafte baad build ka waqt aaya, kuch bana nahi. Tum topic se bore nahi hue — **progress na dikhne** se bore hue.' },
+      { h: 'Weakness 3 — Consistency system nahi, mood hai', p: '1/10 discipline problem nahi, **design** problem hai. Practice kisi trigger se juda hi nahi — jis din mann kiya kiya, nahi to chain toot gayi. Ek break ke baad wapas aana sabse mushkil hota hai, kyunki guilt aa jaati hai aur guilt avoidance banati hai. Har plan 11 din mein marta hai — skill nahi, **yahi** asli bottleneck hai.' },
+    ],
+    analogy:
+      'Tumne 5 saal mein 5 saal nahi khoye — **3.5 khoye**. Pehle 1.5 saal sach mein seekh rahe the, phir comfortable ho gaye (most devs ke saath hota hai). Aur consistency tumhari personality problem nahi hai: 5 saal se roz job jaate ho, bina motivation ke — kyunki wahan **structure, deadline, accountability** hain. Learning mein teenon missing hain. Tum lazy nahi ho, tumhara **system** missing hai. Jo khud ko lazy maanta hai woh discipline dhoondhta hai; jo system ki kami maanta hai woh **system banata hai** — aur doosra kaam karta hai. 🏗️',
+    visual: {
+      type: 'timeline',
+      items: [
+        { year: 'Day 1–30', text: 'Sirf STREAK, sirf building. Ek hi metric: kitne din lagataar. Fixed time roz, 30 min sirf code (chhoti cheez, bina tutorial). Target: 22+ din done.' },
+        { year: 'Day 31–60', text: 'Architecture — pehli baar zero se. Ek app, sab tumhara: folder, state, data-fetching, errors, routing. Har badi choice decisions.md mein (kya + kyun + kya reject).' },
+        { year: 'Day 61–90', text: 'Depth + measurement. Apni app todo-fix, profiler kholo, 1 real AI feature add karo, 3 mock interviews, 5 JD par khud ko line-by-line rate karo.' },
+      ],
+    },
+    process: {
+      type: 'boxes',
+      items: [
+        { label: 'Streak', sub: 'Day 1–30', color: '#22C55E' },
+        { label: 'Architecture', sub: 'Day 31–60', color: '#F59E0B' },
+        { label: 'Depth + Measure', sub: 'Day 61–90', color: '#EF4444' },
+        { label: 'Real trajectory', sub: '12–18 mahine', color: '#8B5CF6' },
+      ],
+    },
+    steps: [
+      '**30-min rule badlo — sirf building, kabhi consuming.** Tutorial / video / article / ChatGPT-se-topic-samajhna — sab band. Sirf editor khula, kuch bana raha ho.',
+      'Padhna **sirf tab** jab atke ho aur specific cheez pata karni ho — aur **5 minute** se zyada nahi.',
+      '**Fixed time** har din (job ke turant baad ya subah). Same time. Mood par mat chhodo.',
+      '**Break ka niyam (sabse important):** ek din chhoot jaaye to agle din 30 min karo. Do-din ka makeup mat karo, guilt mat lo. **Kabhi do din lagataar miss mat karo** — ek din miss failure nahi, do din failure ki shuruat hai.',
+      'Kaam par **hafte mein ek decision** propose karo: "Main aise banaunga kyunki ___, aur ___ approach isliye nahi le raha kyunki ___." Lead ko bolo — disagree ho to bhi. 6 mahine mein 25 aise moments = interview stories.',
+      '**AI abhi chhod do — 3 mahine ke liye.** AI integration core frontend ke *upar* rakhi jaati hai, uski *jagah* nahi. Core weak raha to "AI wrapper wala junior" banoge — sabse crowded, sabse kam paying role.',
+    ],
+    compare: {
+      headers: ['Galat samajh (abhi)', 'Sahi frame'],
+      rows: [
+        ['Topic-by-topic seekhna (syllabus mindset)', 'Problem se shuru; topic tab jab raaste mein atko'],
+        ['Job ka kaam = practice', 'Job = existing patterns repeat = maintenance, growth nahi'],
+        ['"React ka masters" (exist hi nahi karta)', 'Problem-solving: performance, architecture, debugging'],
+        ['AI = shortcut / premium skill', 'AI feature = ek weekend ka API call; fundamentals asli gap'],
+        ['30-min banda, 6-mahine ka goal, 1/10 consistency', '30 min × 18 mahine bina naaga = ~270 ghante real build time'],
+      ],
+    },
+    notes: {
+      concept: 'Problem 12–15 LPA ka number nahi (5-saal solid React dev ke liye normal range hai) — problem **timeline + capability gap** hai. Resume 5 saal, capability 1.5–2 saal.',
+      tip: '30 min kaafi hai — sirf ek shart par: woh 30 min **build** ho, padhna nahi. Video dekhoge to 18 mahine baad bhi wahin raho ge.',
+      warning: 'Chunav 6 mahine aur 18 mahine ke beech nahi hai. Chunav **18 mahine aur "kabhi nahi"** ke beech hai.',
+      error: 'Sirf comprehension chase karna (samajh aana). Comprehension nasha deta hai, capability **build se** banti hai — ulta kabhi nahi hota.',
+    },
+    best: [
+      'Apna 30-min rule: **sirf building, kabhi consuming** — tumhare exact failure mode ("samajh aata tha, banta nahi tha") par direct hit.',
+      'Kaam par chhote decisions lena shuru karo — hafte mein sirf ek. Abhi tumhare paas aise zero moments hain.',
+      'AI ko 3 mahine chhodo — core strong hua to AI integration 3 hafte mein pakad loge.',
+      'Ek chhota app deep karo (sab tumhara) — 10 bikhre demos mat banao.',
+      'decisions.md rakho — yeh tumhara interview material hai, notes nahi.',
+    ],
+    projects: [
+      'Expense tracker (state + forms)',
+      'Search + filter + sort wali table',
+      'Multi-step form with validation',
+      'Drag-drop kanban board',
+      'Chhota inventory/booking app — CRUD + list/detail + filters',
+      '1 real AI feature: streaming + loading/error + retry + token limit',
+    ],
+    cheatsheet: [
+      { h: '30-60-90 arc', code: `Day 1-30   Streak + build only  (target 22+ din)\nDay 31-60  Architecture zero se + decisions.md (10+ entries)\nDay 61-90  Profiler + 1 AI feature + 3 mocks + 5 JD self-rate` },
+      { h: 'Non-negotiable rules', code: `30 min = BUILD, never consume\nRead only when stuck (< 5 min)\nFixed time, same time daily\nNever miss 2 days in a row\n1 work decision / week\nAI paused for 3 months` },
+    ],
+    exercises: {
+      easy: ['Aaj 30 min editor kholo aur ek chhoti cheez banana shuru karo — expense tracker / search-filter-sort table / multi-step form. Bina tutorial. Har din ek line likho: kya banaya, kahan atka.'],
+      medium: ['Day 31–60: ek app zero se — folder structure, state choice, data-fetching pattern, error/loading states, routing sab **khud** decide karo. decisions.md mein 10+ entry (kya + kyun + kya reject).'],
+      advanced: ['Day 61–90: apni app ka profiler kholo — kya unnecessary re-render / re-fetch ho raha hai, fix karo. Phir ek real AI feature add karo (streaming response + error handling + retry + token limit).'],
+    },
+    interview: {
+      beginner: [
+        { q: 'Tum khud ko kaise position karoge?', a: 'Ek engineer jo strong frontend fundamentals + architecture judgment rakhta hai — sirf ticket implement nahi karta, apne decisions justify kar sakta hai.' },
+        { q: '5 saal experience par capability gap ka jawab?', a: 'Sach: pehle 1.5 saal seekha, phir maintenance. Ab main deliberately decisions le raha hoon, trade-offs jhel raha hoon, aur decisions.md se apne judgment ka proof bana raha hoon.' },
+      ],
+      intermediate: [
+        { q: 'State management kya choose karoge aur kyun?', a: 'Depends: local UI state → useState; server state → React Query (cache + refetch); global client state → Zustand. Trade-off: Redux boilerplate vs Zustand simplicity; over-globalizing state = unnecessary re-renders.' },
+        { q: 'Yeh component slow hai — kaise debug karoge?', a: 'React Profiler kholo → dekho kaun re-render ho raha aur kyun (props/context/parent). Fix: React.memo / useMemo / useCallback, inline object/fn props hatao, list virtualize, state neeche push karo.' },
+      ],
+      advanced: [
+        { q: '3 saal baad bhi maintain ho aisa kaise design karoge?', a: 'Feature-folders + clear boundaries, composition over configuration, side-effects isolate, types/contracts, aur har badi choice decisions.md mein "kyun + kya reject kiya" ke saath.' },
+        { q: '12–15 LPA ka asli differentiator kya hai?', a: 'Implementation nahi — judgment: decisions justify karna, debugging, architecture, aur "aisa kyun kiya" samjhaana. Yeh ownership se aata hai, codebase mein baithne se nahi.' },
+      ],
+    },
+    mcqs: [
+      { q: '90 din ka #1 lever kya hai?', options: ['Har hafte naya framework', '30 min sirf building, consuming nahi', 'Zyada tutorials dekhna', 'Sirf DSA'], answer: 1, explain: 'Comprehension nasha deta hai; capability sirf build se banti hai.' },
+      { q: 'Break ka sahi niyam?', options: ['Do din ka makeup ek din mein', 'Kabhi do din lagataar miss mat karo', 'Miss ho to poora hafta chhodo', 'Guilt lo aur ruk jao'], answer: 1, explain: 'Ek din miss failure nahi; do consecutive din failure ki shuruat hai.' },
+      { q: 'AI ka sahi role abhi?', options: ['Shortcut to 12–15 LPA', '3 mahine ke liye pause — pehle fundamentals', 'Sabse pehle seekho', 'Ignore forever'], answer: 1, explain: 'AI integration core ke upar rakhi jaati hai; core weak = AI-wrapper junior.' },
+      { q: 'Asli chunav kya hai?', options: ['6 vs 18 mahine', '18 mahine vs kabhi nahi', 'React vs AI', 'Job vs learning'], answer: 1, explain: 'Consistent raho to 12–18 mahine mein jump; warna 3 saal baad bhi wahin.' },
+    ],
+    summary: [
+      'Resume 5 saal, capability ~1.5–2 saal — market capability kharidta hai, aur 40 min mein pakad leta hai.',
+      'Do strengths: khud se sach bolna + bade codebase mein survive karna. Baaki abhi nahi hai.',
+      'Teen weakness: ownership na lena (judgment nahi bana), seekhna ≠ practice, consistency = system ki kami.',
+      '30-min rule = sirf build. Do din lagataar kabhi miss mat karo. AI 3 mahine ke liye chhodo.',
+      '90-din ka asli paimana: kya 10 min mein samjha sako ki app aise kyun banaya aur 3 aur tareeke kyun nahi liye? Haan → implementer se engineer ban rahe ho.',
+    ],
+    mistakes: [
+      { bad: 'Topic-by-topic seekhna (syllabus mindset).', fix: 'Problem se shuru karo; topic tab padho jab raaste mein atko. List kabhi khatam nahi hoti.' },
+      { bad: 'Job ke kaam ko practice maanna.', fix: 'Job = existing patterns repeat = maintenance. Growth alag, deliberate build se aati hai.' },
+      { bad: '"React ka masters" chase karna.', fix: 'React library hai, degree nahi. Problem-solving (perf / architecture / debug) chase karo.' },
+      { bad: 'AI ko shortcut samajhna.', fix: 'AI feature = weekend API call. Pehle fundamentals; AI baad mein, uske upar.' },
+      { bad: '30-min banda, 6-mahine ka goal, 1/10 consistency.', fix: 'Realistic: 30 min × 18 mahine bina naaga. Yeh arithmetic hai, motivation nahi.' },
+    ],
+    advanced:
+      'Ek line ki asli baat: 5 saal ke baad har kuch mahine naya framework seekhna tumhara biggest lever **nahi** hai — **judgment + consistency** hai. 90 din ke end mein tumhare paas 12–15 LPA ka offer nahi hoga. Tumhare paas woh cheez hogi jo aaj nahi hai: ek **asli trajectory** aur proof ki tum consistent reh sakte ho. Woh offer 12–18 mahine mein banta hai — isse jaldi kisi ka nahi banta, chahe koi kuch bhi bole.',
+    related: ['one-year-roadmap', 'interview-questions', 'real-projects'],
   },
 
   'what-is-ai-app': {
